@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Migrate to Hugo from Jekyll - Mainroad</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="Migrate to Hugo from Jekyll" />
+<meta property="og:description" content="Move static content to static Jekyll has a rule that any directory not starting with _ will be copied as-is to the _site output. Hugo keeps all static content under static. You should therefore move it all there. With Jekyll, something that looked like
+▾ &lt;root&gt;/ ▾ images/ logo.png  should become
+▾ &lt;root&gt;/ ▾ static/ ▾ images/ logo.png  Additionally, you&rsquo;ll want any files that should reside at the root (such as CNAME) to be moved to static." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/post/migrate-from-jekyll/" />
+<meta property="article:published_time" content="2014-03-10T00:00:00+00:00" />
+<meta property="article:modified_time" content="2014-03-10T00:00:00+00:00" />
+
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+	<link rel="stylesheet" href="/css/style.css">
+	
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo">
+		<a class="logo__link" href="/" title="Mainroad" rel="home">
+			<div class="logo__item logo__text">
+					<div class="logo__title">Mainroad</div>
+					<div class="logo__tagline">Just another site</div>
+				</div>
+		</a>
+	</div>
+		
+<nav class="menu">
+	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
+		<span class="menu__btn-title" tabindex="-1">Menu</span>
+	</button>
+	<ul class="menu__list">
+		<li class="menu__item menu__item--active">
+			<a class="menu__link" href="/post/migrate-from-jekyll/">
+				
+				<span class="menu__text">Jekyll migration</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/post/goisforlovers/">
+				
+				<span class="menu__text">(Hu)go Template Primer</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/about/">
+				
+				<span class="menu__text">About Hugo</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/post/hugoisforlovers/">
+				
+				<span class="menu__text">Getting Started with Hugo</span>
+				
+			</a>
+		</li>
+	</ul>
+</nav>
+
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Migrate to Hugo from Jekyll</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2014-03-10T00:00:00Z">March 10, 2014</time></div></div>
+		</header><div class="content post__content clearfix">
+			<h2 id="move-static-content-to-static">Move static content to <code>static</code></h2>
+<p>Jekyll has a rule that any directory not starting with <code>_</code> will be copied as-is to the <code>_site</code> output. Hugo keeps all static content under <code>static</code>. You should therefore move it all there.
+With Jekyll, something that looked like</p>
+<pre><code>▾ &lt;root&gt;/
+    ▾ images/
+        logo.png
+</code></pre>
+<p>should become</p>
+<pre><code>▾ &lt;root&gt;/
+    ▾ static/
+        ▾ images/
+            logo.png
+</code></pre>
+<p>Additionally, you&rsquo;ll want any files that should reside at the root (such as <code>CNAME</code>) to be moved to <code>static</code>.</p>
+<h2 id="create-your-hugo-configuration-file">Create your Hugo configuration file</h2>
+<p>Hugo can read your configuration as JSON, YAML or TOML. Hugo supports parameters custom configuration too. Refer to the <a href="/overview/configuration/">Hugo configuration documentation</a> for details.</p>
+<h2 id="set-your-configuration-publish-folder-to-_site">Set your configuration publish folder to <code>_site</code></h2>
+<p>The default is for Jekyll to publish to <code>_site</code> and for Hugo to publish to <code>public</code>. If, like me, you have <a href="http://blog.blindgaenger.net/generate_github_pages_in_a_submodule.html"><code>_site</code> mapped to a git submodule on the <code>gh-pages</code> branch</a>, you&rsquo;ll want to do one of two alternatives:</p>
+<ol>
+<li>
+<p>Change your submodule to point to map <code>gh-pages</code> to public instead of <code>_site</code> (recommended).</p>
+<pre><code> git submodule deinit _site
+ git rm _site
+ git submodule add -b gh-pages git@github.com:your-username/your-repo.git public
+</code></pre>
+</li>
+<li>
+<p>Or, change the Hugo configuration to use <code>_site</code> instead of <code>public</code>.</p>
+<pre><code> {
+     ..
+     &quot;publishdir&quot;: &quot;_site&quot;,
+     ..
+ }
+</code></pre>
+</li>
+</ol>
+<h2 id="convert-jekyll-templates-to-hugo-templates">Convert Jekyll templates to Hugo templates</h2>
+<p>That&rsquo;s the bulk of the work right here. The documentation is your friend. You should refer to <a href="http://jekyllrb.com/docs/templates/">Jekyll&rsquo;s template documentation</a> if you need to refresh your memory on how you built your blog and <a href="/layout/templates/">Hugo&rsquo;s template</a> to learn Hugo&rsquo;s way.</p>
+<p>As a single reference data point, converting my templates for <a href="http://heyitsalex.net/">heyitsalex.net</a> took me no more than a few hours.</p>
+<h2 id="convert-jekyll-plugins-to-hugo-shortcodes">Convert Jekyll plugins to Hugo shortcodes</h2>
+<p>Jekyll has <a href="http://jekyllrb.com/docs/plugins/">plugins</a>; Hugo has <a href="/doc/shortcodes/">shortcodes</a>. It&rsquo;s fairly trivial to do a port.</p>
+<h3 id="implementation">Implementation</h3>
+<p>As an example, I was using a custom <a href="https://github.com/alexandre-normand/alexandre-normand/blob/74bb12036a71334fdb7dba84e073382fc06908ec/_plugins/image_tag.rb"><code>image_tag</code></a> plugin to generate figures with caption when running Jekyll. As I read about shortcodes, I found Hugo had a nice built-in shortcode that does exactly the same thing.</p>
+<p>Jekyll&rsquo;s plugin:</p>
+<pre><code>module Jekyll
+  class ImageTag &lt; Liquid::Tag
+    @url = nil
+    @caption = nil
+    @class = nil
+    @link = nil
+    // Patterns
+    IMAGE_URL_WITH_CLASS_AND_CAPTION =
+    IMAGE_URL_WITH_CLASS_AND_CAPTION_AND_LINK = /(\w+)(\s+)((https?:\/\/|\/)(\S+))(\s+)&quot;(.*?)&quot;(\s+)-&gt;((https?:\/\/|\/)(\S+))(\s*)/i
+    IMAGE_URL_WITH_CAPTION = /((https?:\/\/|\/)(\S+))(\s+)&quot;(.*?)&quot;/i
+    IMAGE_URL_WITH_CLASS = /(\w+)(\s+)((https?:\/\/|\/)(\S+))/i
+    IMAGE_URL = /((https?:\/\/|\/)(\S+))/i
+    def initialize(tag_name, markup, tokens)
+      super
+      if markup =~ IMAGE_URL_WITH_CLASS_AND_CAPTION_AND_LINK
+        @class   = $1
+        @url     = $3
+        @caption = $7
+        @link = $9
+      elsif markup =~ IMAGE_URL_WITH_CLASS_AND_CAPTION
+        @class   = $1
+        @url     = $3
+        @caption = $7
+      elsif markup =~ IMAGE_URL_WITH_CAPTION
+        @url     = $1
+        @caption = $5
+      elsif markup =~ IMAGE_URL_WITH_CLASS
+        @class = $1
+        @url   = $3
+      elsif markup =~ IMAGE_URL
+        @url = $1
+      end
+    end
+    def render(context)
+      if @class
+        source = &quot;&lt;figure class='#{@class}'&gt;&quot;
+      else
+        source = &quot;&lt;figure&gt;&quot;
+      end
+      if @link
+        source += &quot;&lt;a href=\&quot;#{@link}\&quot;&gt;&quot;
+      end
+      source += &quot;&lt;img src=\&quot;#{@url}\&quot;&gt;&quot;
+      if @link
+        source += &quot;&lt;/a&gt;&quot;
+      end
+      source += &quot;&lt;figcaption&gt;#{@caption}&lt;/figcaption&gt;&quot; if @caption
+      source += &quot;&lt;/figure&gt;&quot;
+      source
+    end
+  end
+end
+Liquid::Template.register_tag('image', Jekyll::ImageTag)
+</code></pre>
+<p>is written as this Hugo shortcode:</p>
+<pre><code>&lt;!-- image --&gt;
+&lt;figure {{ with .Get &quot;class&quot; }}class=&quot;{{.}}&quot;{{ end }}&gt;
+    {{ with .Get &quot;link&quot;}}&lt;a href=&quot;{{.}}&quot;&gt;{{ end }}
+        &lt;img src=&quot;{{ .Get &quot;src&quot; }}&quot; {{ if or (.Get &quot;alt&quot;) (.Get &quot;caption&quot;) }}alt=&quot;{{ with .Get &quot;alt&quot;}}{{.}}{{else}}{{ .Get &quot;caption&quot; }}{{ end }}&quot;{{ end }} /&gt;
+    {{ if .Get &quot;link&quot;}}&lt;/a&gt;{{ end }}
+    {{ if or (or (.Get &quot;title&quot;) (.Get &quot;caption&quot;)) (.Get &quot;attr&quot;)}}
+    &lt;figcaption&gt;{{ if isset .Params &quot;title&quot; }}
+        {{ .Get &quot;title&quot; }}{{ end }}
+        {{ if or (.Get &quot;caption&quot;) (.Get &quot;attr&quot;)}}&lt;p&gt;
+        {{ .Get &quot;caption&quot; }}
+        {{ with .Get &quot;attrlink&quot;}}&lt;a href=&quot;{{.}}&quot;&gt; {{ end }}
+            {{ .Get &quot;attr&quot; }}
+        {{ if .Get &quot;attrlink&quot;}}&lt;/a&gt; {{ end }}
+        &lt;/p&gt; {{ end }}
+    &lt;/figcaption&gt;
+    {{ end }}
+&lt;/figure&gt;
+&lt;!-- image --&gt;
+</code></pre>
+<h3 id="usage">Usage</h3>
+<p>I simply changed:</p>
+<pre><code>{% image full http://farm5.staticflickr.com/4136/4829260124_57712e570a_o_d.jpg &quot;One of my favorite touristy-type photos. I secretly waited for the good light while we were &quot;having fun&quot; and took this. Only regret: a stupid pole in the top-left corner of the frame I had to clumsily get rid of at post-processing.&quot; -&gt;http://www.flickr.com/photos/alexnormand/4829260124/in/set-72157624547713078/ %}
+</code></pre>
+<p>to this (this example uses a slightly extended version named <code>fig</code>, different than the built-in <code>figure</code>):</p>
+<pre><code>{{% fig class=&quot;full&quot; src=&quot;http://farm5.staticflickr.com/4136/4829260124_57712e570a_o_d.jpg&quot; title=&quot;One of my favorite touristy-type photos. I secretly waited for the good light while we were having fun and took this. Only regret: a stupid pole in the top-left corner of the frame I had to clumsily get rid of at post-processing.&quot; link=&quot;http://www.flickr.com/photos/alexnormand/4829260124/in/set-72157624547713078/&quot; %}}
+</code></pre>
+<p>As a bonus, the shortcode named parameters are, arguably, more readable.</p>
+<h2 id="finishing-touches">Finishing touches</h2>
+<h3 id="fix-content">Fix content</h3>
+<p>Depending on the amount of customization that was done with each post with Jekyll, this step will require more or less effort. There are no hard and fast rules here except that <code>hugo server --watch</code> is your friend. Test your changes and fix errors as needed.</p>
+<h3 id="clean-up">Clean up</h3>
+<p>You&rsquo;ll want to remove the Jekyll configuration at this point. If you have anything else that isn&rsquo;t used, delete it.</p>
+<h2 id="a-practical-example-in-a-diff">A practical example in a diff</h2>
+<p><a href="http://heyitsalex.net/">Hey, it&rsquo;s Alex</a> was migrated in less than a <em>father-with-kids day</em> from Jekyll to Hugo. You can see all the changes (and screw-ups) by looking at this <a href="https://github.com/alexandre-normand/alexandre-normand/compare/869d69435bd2665c3fbf5b5c78d4c22759d7613a...b7f6605b1265e83b4b81495423294208cc74d610">diff</a>.</p>
+
+		</div>
+	</article>
+</main>
+
+<div class="authorbox clearfix">
+	<figure class="authorbox__avatar">
+		<img alt="John Doe avatar" src="/img/avatar.png" class="avatar" height="90" width="90">
+	</figure>
+	<div class="authorbox__header">
+		<span class="authorbox__name">About John Doe</span>
+	</div>
+	<div class="authorbox__description">
+		John Doe&rsquo;s true identity is unknown. Maybe he is a successful blogger or writer. Nobody knows it.
+	</div>
+</div>
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--next">
+		<a class="pager__link" href="/post/hugoisforlovers/" rel="next">
+			<span class="pager__subtitle">Next&thinsp;»</span>
+			<p class="pager__title">Getting Started with Hugo</p>
+		</a>
+	</div>
+</nav>
+
+
+
+			</div>
+			<aside class="sidebar"><div class="widget-search widget">
+	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
+		<label>
+			<input class="widget-search__field" type="search" placeholder="SEARCH..." value="" name="q" aria-label="SEARCH...">
+		</label>
+		<input class="widget-search__submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="/" />
+	</form>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/post/basic-elements/">Basic HTML Elements</a></li>
+			<li class="widget__item"><a class="widget__link" href="/post/2015-07-23-r-rmarkdown/">Hello R Markdown</a></li>
+			<li class="widget__item"><a class="widget__link" href="/post/creating-a-new-theme/">Creating a New Theme</a></li>
+			<li class="widget__item"><a class="widget__link" href="/post/goisforlovers/">(Hu)go Template Primer</a></li>
+			<li class="widget__item"><a class="widget__link" href="/post/hugoisforlovers/">Getting Started with Hugo</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">Categories</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/development/">Development</a>
+			</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/golang/">golang</a>
+			</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/r/">R</a>
+			</li>
+		</ul>
+	</div>
+</div>
+<div class="widget-taglist widget">
+	<h4 class="widget__title">Tags</h4>
+	<div class="widget__content">
+		<a class="widget-taglist__link widget__link btn" href="/tags/basic-elements/" title="Basic Elements">Basic Elements</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/css/" title="CSS">CSS</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/development/" title="development">development</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/go/" title="go">go</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/golang/" title="golang">golang</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/html/" title="HTML">HTML</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/hugo/" title="hugo">hugo</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/plot/" title="plot">plot</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/r-markdown/" title="R Markdown">R Markdown</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/regression/" title="regression">regression</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/templates/" title="templates">templates</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/themes/" title="themes">themes</a>
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2020 Mainroad.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+</body>
+</html>
