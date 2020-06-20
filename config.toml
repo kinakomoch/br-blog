@@ -1,5 +1,5 @@
 baseurl = "/"
-title = "Mainroad"
+title = "Br-blog"
 languageCode = "en-us"
 paginate = "10" # Number of posts per page
 theme = "Mainroad"
@@ -8,9 +8,9 @@ googleAnalytics = "" # Enable Google Analytics by entering your tracking id
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 
 [Author]
-  name = "John Doe"
-  bio = "John Doe's true identity is unknown. Maybe he is a successful blogger or writer. Nobody knows it."
-  avatar = "img/avatar.png"
+  name = "tikeda-caravan"
+  bio = "Stupid man"
+  avatar = "img/tikeda-caravan.jpg"
 
 [Params]
   description = "John Doe's Personal blog about everything" # Description of your site

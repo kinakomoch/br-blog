@@ -1,40 +1,40 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on Mainroad</title>
+    <title>Tags on Br-blog</title>
     <link>/tags/</link>
-    <description>Recent content in Tags on Mainroad</description>
+    <description>Recent content in Tags on Br-blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 16 Apr 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 20 Jun 2020 21:06:54 +0900</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Basic Elements</title>
-      <link>/tags/basic-elements/</link>
-      <pubDate>Mon, 16 Apr 2018 00:00:00 +0000</pubDate>
+      <title>Analysis</title>
+      <link>/tags/analysis/</link>
+      <pubDate>Sat, 20 Jun 2020 21:06:54 +0900</pubDate>
       
-      <guid>/tags/basic-elements/</guid>
+      <guid>/tags/analysis/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>CSS</title>
-      <link>/tags/css/</link>
-      <pubDate>Mon, 16 Apr 2018 00:00:00 +0000</pubDate>
+      <title>ML</title>
+      <link>/tags/ml/</link>
+      <pubDate>Sat, 20 Jun 2020 21:06:54 +0900</pubDate>
       
-      <guid>/tags/css/</guid>
+      <guid>/tags/ml/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>HTML</title>
-      <link>/tags/html/</link>
-      <pubDate>Mon, 16 Apr 2018 00:00:00 +0000</pubDate>
+      <title>雑談</title>
+      <link>/tags/%E9%9B%91%E8%AB%87/</link>
+      <pubDate>Sat, 20 Jun 2020 21:06:54 +0900</pubDate>
       
-      <guid>/tags/html/</guid>
+      <guid>/tags/%E9%9B%91%E8%AB%87/</guid>
       <description></description>
     </item>
     
@@ -62,60 +62,6 @@
       <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
       
       <guid>/tags/regression/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>development</title>
-      <link>/tags/development/</link>
-      <pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/development/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>go</title>
-      <link>/tags/go/</link>
-      <pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/go/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>golang</title>
-      <link>/tags/golang/</link>
-      <pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/golang/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>hugo</title>
-      <link>/tags/hugo/</link>
-      <pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/hugo/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>templates</title>
-      <link>/tags/templates/</link>
-      <pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/templates/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>themes</title>
-      <link>/tags/themes/</link>
-      <pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/themes/</guid>
       <description></description>
     </item>
     
