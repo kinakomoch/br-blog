@@ -12,11 +12,29 @@
     
     
     <item>
-      <title>red dead</title>
-      <link>/tags/red-dead/</link>
+      <title>Analysis</title>
+      <link>/tags/analysis/</link>
       <pubDate>Sat, 20 Jun 2020 21:06:54 +0900</pubDate>
       
-      <guid>/tags/red-dead/</guid>
+      <guid>/tags/analysis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ML</title>
+      <link>/tags/ml/</link>
+      <pubDate>Sat, 20 Jun 2020 21:06:54 +0900</pubDate>
+      
+      <guid>/tags/ml/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>雑談</title>
+      <link>/tags/%E9%9B%91%E8%AB%87/</link>
+      <pubDate>Sat, 20 Jun 2020 21:06:54 +0900</pubDate>
+      
+      <guid>/tags/%E9%9B%91%E8%AB%87/</guid>
       <description></description>
     </item>
     

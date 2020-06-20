@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>red dead on Br-blog</title>
-    <link>/tags/red-dead/</link>
-    <description>Recent content in red dead on Br-blog</description>
+    <title>ML on Br-blog</title>
+    <link>/categories/ml/</link>
+    <description>Recent content in ML on Br-blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 20 Jun 2020 21:06:54 +0900</lastBuildDate>
     
-	<atom:link href="/tags/red-dead/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/categories/ml/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>

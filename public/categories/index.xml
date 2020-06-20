@@ -12,11 +12,20 @@
     
     
     <item>
-      <title>test</title>
-      <link>/categories/test/</link>
+      <title>Analysis</title>
+      <link>/categories/analysis/</link>
       <pubDate>Sat, 20 Jun 2020 21:06:54 +0900</pubDate>
       
-      <guid>/categories/test/</guid>
+      <guid>/categories/analysis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ML</title>
+      <link>/categories/ml/</link>
+      <pubDate>Sat, 20 Jun 2020 21:06:54 +0900</pubDate>
+      
+      <guid>/categories/ml/</guid>
       <description></description>
     </item>
     

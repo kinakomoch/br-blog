@@ -3,7 +3,12 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/categories/</loc>
+    <loc>/tags/analysis/</loc>
+    <lastmod>2020-06-20T21:06:54+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/analysis/</loc>
     <lastmod>2020-06-20T21:06:54+09:00</lastmod>
   </url>
   
@@ -13,12 +18,22 @@
   </url>
   
   <url>
-    <loc>/post/</loc>
+    <loc>/categories/</loc>
     <lastmod>2020-06-20T21:06:54+09:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/red-dead/</loc>
+    <loc>/tags/ml/</loc>
+    <lastmod>2020-06-20T21:06:54+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/ml/</loc>
+    <lastmod>2020-06-20T21:06:54+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/</loc>
     <lastmod>2020-06-20T21:06:54+09:00</lastmod>
   </url>
   
@@ -28,7 +43,7 @@
   </url>
   
   <url>
-    <loc>/categories/test/</loc>
+    <loc>/tags/%E9%9B%91%E8%AB%87/</loc>
     <lastmod>2020-06-20T21:06:54+09:00</lastmod>
   </url>
   
