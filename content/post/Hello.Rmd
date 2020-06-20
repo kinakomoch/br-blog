@@ -1,0 +1,28 @@
+---
+title: "Hello"
+description: ""
+date: "2020-06-20T21:06:54+09:00"
+thumbnail: "img/tikeda-caravan.jpg"
+categories:
+  - "test"
+tags:
+  - "red dead"
+linktitle: Hello
+menu:
+  main:
+    name: FUXXXXXXX!!!!
+    weight: 10
+---
+
+
+# Hello World!!
+
+はじめての記事です!
+
+うんこ
+
+```{r, echo=FALSE}
+library(icon)
+icon::fa("github", size = 5)
+```
+

@@ -12,6 +12,17 @@
     
     
     <item>
+      <title>Hello</title>
+      <link>/post/hello/</link>
+      <pubDate>Sat, 20 Jun 2020 21:06:54 +0900</pubDate>
+      
+      <guid>/post/hello/</guid>
+      <description> Hello World!! はじめての記事です!
+うんこ
+  </description>
+    </item>
+    
+    <item>
       <title>Hello R Markdown</title>
       <link>/post/2015-07-23-r-rmarkdown/</link>
       <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
