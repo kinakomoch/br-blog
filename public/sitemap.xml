@@ -3,6 +3,46 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/post/connect-mariadb/</loc>
+    <lastmod>2020-07-25T23:55:29+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/</loc>
+    <lastmod>2020-07-25T23:55:29+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/mariadb/</loc>
+    <lastmod>2020-07-25T23:55:29+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/mariadb/</loc>
+    <lastmod>2020-07-25T23:55:29+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/</loc>
+    <lastmod>2020-07-25T23:55:29+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/r/</loc>
+    <lastmod>2020-07-25T23:55:29+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/r/</loc>
+    <lastmod>2020-07-25T23:55:29+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2020-07-25T23:55:29+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/tags/analysis/</loc>
     <lastmod>2020-06-20T21:06:54+09:00</lastmod>
   </url>
@@ -18,27 +58,12 @@
   </url>
   
   <url>
-    <loc>/categories/</loc>
-    <lastmod>2020-06-20T21:06:54+09:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/tags/ml/</loc>
     <lastmod>2020-06-20T21:06:54+09:00</lastmod>
   </url>
   
   <url>
     <loc>/categories/ml/</loc>
-    <lastmod>2020-06-20T21:06:54+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/</loc>
-    <lastmod>2020-06-20T21:06:54+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
     <lastmod>2020-06-20T21:06:54+09:00</lastmod>
   </url>
   
@@ -54,11 +79,6 @@
   
   <url>
     <loc>/tags/plot/</loc>
-    <lastmod>2015-07-23T21:13:14-05:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/categories/r/</loc>
     <lastmod>2015-07-23T21:13:14-05:00</lastmod>
   </url>
   
