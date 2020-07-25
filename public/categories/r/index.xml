@@ -6,10 +6,26 @@
     <description>Recent content in R on Br-blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 23 Jul 2015 21:13:14 -0500</lastBuildDate>
+    <lastBuildDate>Sat, 25 Jul 2020 23:55:29 +0900</lastBuildDate>
     
 	<atom:link href="/categories/r/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Connect-MariaDB in R</title>
+      <link>/post/connect-mariadb/</link>
+      <pubDate>Sat, 25 Jul 2020 23:55:29 +0900</pubDate>
+      
+      <guid>/post/connect-mariadb/</guid>
+      <description>MariaDBのインストール 以下の参考サイトを元に、MariaDBのインストールと初期設定を行う
+ MariaDB10.1のインストール方法 homebrew から MariaDB をインストールする方法  自分はMac Userなので、homebrewを使ってインストール
+$ brew update $ brew search mariadb $ brew install mariadb これで、mariadbがインストールできた。
+ 初期設定の方法 $ sudo mysql_secure_installation で設定を行う。
+詳細はMariaDB10.1のインストール方法を参考にしてください。
+次に、RからMariaDBに接続するために、 ここで紹介されているodbcのドライバーをインストールを行う。
+以下のコマンドを打って、MariaDBを起動させる。
+➜ / brew services start mariadb ==&amp;gt; Successfully started mariadb (label: homebrew.mxcl.mariadb) ➜ / sudo mysql -u root Welcome to the MariaDB monitor. Commands end with ; or \g. Your MariaDB connection id is 8 Server version: 10.</description>
+    </item>
     
     <item>
       <title>Hello R Markdown</title>

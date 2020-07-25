@@ -1,0 +1,151 @@
+---
+title: "Connect-MariaDB in R"
+description: ""
+date: "2020-07-25T23:55:29+09:00"
+thumbnail: ""
+categories:
+  - "R"
+  - "MariaDB"
+tags:
+  - "R"
+  - "MariaDB"
+linktitle: Boat_Race
+menu:
+  main:
+    name: Boat Race
+    weight: 10
+---
+
+
+
+<div id="mariadbのインストール" class="section level1">
+<h1>MariaDBのインストール</h1>
+<p>以下の参考サイトを元に、MariaDBのインストールと初期設定を行う</p>
+<ul>
+<li><a href="https://qiita.com/hana_shin/items/4d7e9f07e206e989834b">MariaDB10.1のインストール方法</a></li>
+<li><a href="https://qiita.com/kozmats/items/ac32f1ac1d676a09e3b2">homebrew から MariaDB をインストールする方法</a></li>
+</ul>
+<p>自分はMac Userなので、homebrewを使ってインストール</p>
+<pre><code>$ brew update
+
+$ brew search mariadb
+
+$ brew install mariadb</code></pre>
+<p>これで、mariadbがインストールできた。</p>
+</div>
+<div id="初期設定の方法" class="section level1">
+<h1>初期設定の方法</h1>
+<pre><code>$ sudo mysql_secure_installation</code></pre>
+<p>で設定を行う。</p>
+<p>詳細は<a href="https://qiita.com/hana_shin/items/4d7e9f07e206e989834b#7-%E7%8A%B6%E6%85%8B%E3%81%AE%E7%A2%BA%E8%AA%8D%E6%96%B9%E6%B3%95status">MariaDB10.1のインストール方法</a>を参考にしてください。</p>
+<p>次に、RからMariaDBに接続するために、
+<a href="https://mariadb.com/kb/en/r-statistical-programming-using-mariadb-as-the-background-database/#data-transfer-between-r-and-mariadb">ここ</a>で紹介されている<a href="https://downloads.mariadb.com/Connectors/odbc/connector-odbc-3.1.9/">odbcのドライバー</a>をインストールを行う。</p>
+<p>以下のコマンドを打って、MariaDBを起動させる。</p>
+<pre><code>➜  / brew services start mariadb
+==&gt; Successfully started mariadb (label: homebrew.mxcl.mariadb)
+➜  / sudo mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 8
+Server version: 10.4.13-MariaDB Homebrew
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.
+
+MariaDB [(none)]&gt;</code></pre>
+<p>もし</p>
+<pre><code>ERROR 2002 (HY000): Can&#39;t connect to local MySQL server through socket &#39;/tmp/mysql.sock&#39; (2)</code></pre>
+<p>このようなエラーがでたら、MariaDBが立ち上がっていないことを示すので、brew updateなどを行うと解消する可能性がある。</p>
+</div>
+<div id="いよいよrでmariadbに接続" class="section level1">
+<h1>いよいよRでMariaDBに接続</h1>
+<p>必要なライブラリを読み込む</p>
+<pre class="r"><code># library
+library(tidyverse)</code></pre>
+<pre><code>## ─ Attaching packages ─────────────────────────────────────────── tidyverse 1.3.0 ─</code></pre>
+<pre><code>## ✓ ggplot2 3.3.2     ✓ purrr   0.3.4
+## ✓ tibble  3.0.1     ✓ dplyr   1.0.0
+## ✓ tidyr   1.1.0     ✓ stringr 1.4.0
+## ✓ readr   1.3.1     ✓ forcats 0.5.0</code></pre>
+<pre><code>## Warning: パッケージ &#39;tibble&#39; はバージョン 3.6.2 の R の下で造られました</code></pre>
+<pre><code>## Warning: パッケージ &#39;tidyr&#39; はバージョン 3.6.2 の R の下で造られました</code></pre>
+<pre><code>## Warning: パッケージ &#39;purrr&#39; はバージョン 3.6.2 の R の下で造られました</code></pre>
+<pre><code>## Warning: パッケージ &#39;dplyr&#39; はバージョン 3.6.2 の R の下で造られました</code></pre>
+<pre><code>## ─ Conflicts ───────────────────────────────────────────── tidyverse_conflicts() ─
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>library(RMariaDB)</code></pre>
+<pre><code>## Warning: パッケージ &#39;RMariaDB&#39; はバージョン 3.6.2 の R の下で造られました</code></pre>
+<pre class="r"><code>library(DBI)</code></pre>
+<p>MariaDBはデフォルトで、<code>test</code>っていうDBがあるのでそれに接続してみる。
+hostはlocalhostなので、引数で指定する。</p>
+<pre class="r"><code>con &lt;- DBI::dbConnect(
+  drv = RMariaDB::MariaDB(),
+  &quot;test&quot;,
+  host = &quot;localhost&quot;, 
+  port = 3306
+)</code></pre>
+<pre class="r"><code># データの読み込み
+data(iris)
+# dbのテーブルリスト
+DBI::dbListTables(con)</code></pre>
+<pre><code>## character(0)</code></pre>
+<pre class="r"><code># dbにirisテーブルを書き込み
+DBI::dbWriteTable(con, &quot;iris&quot;, iris)
+# 書き込みが完了している。
+DBI::dbListTables(con)</code></pre>
+<pre><code>## [1] &quot;iris&quot;</code></pre>
+<pre class="r"><code># Queryでデータを取ってくる。
+DBI::dbGetQuery(con, &quot;select * from iris order by &#39;Sepal.Length&#39; limit 3&quot;)</code></pre>
+<pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa
+## 3          4.7         3.2          1.3         0.2  setosa</code></pre>
+<pre class="r"><code># テーブルの削除
+DBI::dbRemoveTable(con, &quot;iris&quot;)
+
+# テーブルがなくなっていることが確認できる
+DBI::dbListTables(con)</code></pre>
+<pre><code>## character(0)</code></pre>
+<pre class="r"><code># きちんと、connectをきる
+DBI::dbDisconnect(con)</code></pre>
+<p>以上が軽くではあるが、MariaDBにRで接続する方法を紹介した。</p>
+</div>
+<div id="information" class="section level1">
+<h1>Information</h1>
+<pre><code>## [1] &quot;Sun Jul 26 00:28:20 2020&quot;</code></pre>
+<pre><code>## R version 3.6.1 (2019-07-05)
+## Platform: x86_64-apple-darwin15.6.0 (64-bit)
+## Running under: macOS Sierra 10.12.6
+## 
+## Matrix products: default
+## BLAS:   /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRblas.0.dylib
+## LAPACK: /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRlapack.dylib
+## 
+## locale:
+## [1] ja_JP.UTF-8/ja_JP.UTF-8/ja_JP.UTF-8/C/ja_JP.UTF-8/ja_JP.UTF-8
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+##  [1] DBI_1.1.0       RMariaDB_1.0.9  forcats_0.5.0   stringr_1.4.0  
+##  [5] dplyr_1.0.0     purrr_0.3.4     readr_1.3.1     tidyr_1.1.0    
+##  [9] tibble_3.0.1    ggplot2_3.3.2   tidyverse_1.3.0
+## 
+## loaded via a namespace (and not attached):
+##  [1] tidyselect_1.1.0 xfun_0.15        haven_2.3.1      lattice_0.20-41 
+##  [5] colorspace_1.4-1 vctrs_0.3.1      generics_0.0.2   htmltools_0.5.0 
+##  [9] yaml_2.2.1       blob_1.2.1       rlang_0.4.6      pillar_1.4.4    
+## [13] glue_1.4.1       withr_2.2.0      bit64_0.9-7      dbplyr_1.4.4    
+## [17] modelr_0.1.8     readxl_1.3.1     lifecycle_0.2.0  munsell_0.5.0   
+## [21] blogdown_0.20    gtable_0.3.0     cellranger_1.1.0 rvest_0.3.5     
+## [25] evaluate_0.14    knitr_1.29       fansi_0.4.1      broom_0.5.6     
+## [29] Rcpp_1.0.4.6     scales_1.1.1     backports_1.1.8  jsonlite_1.7.0  
+## [33] bit_1.1-15.2     fs_1.4.1         hms_0.5.3        digest_0.6.25   
+## [37] stringi_1.4.6    bookdown_0.20    grid_3.6.1       cli_2.0.2       
+## [41] tools_3.6.1      magrittr_1.5     crayon_1.3.4     pkgconfig_2.0.3 
+## [45] ellipsis_0.3.1   xml2_1.3.2       reprex_0.3.0     lubridate_1.7.9 
+## [49] assertthat_0.2.1 rmarkdown_2.3    httr_1.4.1       rstudioapi_0.11 
+## [53] R6_2.4.1         nlme_3.1-148     compiler_3.6.1</code></pre>
+</div>
