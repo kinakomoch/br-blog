@@ -9,11 +9,6 @@ categories:
 tags:
   - "R"
   - "MariaDB"
-linktitle: Boat_Race
-menu:
-  main:
-    name: Boat Race
-    weight: 10
 ---
 
 # MariaDBのインストール
