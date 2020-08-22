@@ -11,7 +11,7 @@
 <meta property="og:description" content="John Doe&#39;s Personal blog about everything" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="/post/" />
-<meta property="og:updated_time" content="2020-06-20T21:06:54+09:00" />
+<meta property="og:updated_time" content="2020-07-25T23:55:29+09:00" />
 
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -67,6 +67,29 @@
 	<header class="main__header">
 		<h1 class="main__title">Posts</h1>
 	</header><article class="list__item post">
+	<header class="list__header">
+		<h3 class="list__title post__title ">
+			<a href="/post/connect-mariadb/" rel="bookmark">
+			Connect-MariaDB in R
+			</a>
+		</h3>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2020-07-25T23:55:29&#43;09:00">July 25, 2020</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/r/" rel="category">R</a>, <a class="meta__link" href="/categories/mariadb/" rel="category">MariaDB</a>
+	</span>
+</div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		MariaDBのインストール 以下の参考サイトを元に、MariaDBのインストールと初期設定を行う
+ MariaDB10.1のインストール方法 homebrew から MariaDB をインストールする方法  自分はMac Userなので、homebrewを使ってインストール
+$ brew update $ brew search mariadb $ brew install mariadb これで、mariadbがインストールできた。
+ 初期設定の方法 $ sudo mysql_secure_installation で設定を行う。
+詳細はMariaDB10.1のインストール方法を参考にしてください。
+次に、RからMariaDBに接続するために、 ここで紹介されているodbcのドライバーをインストールを行う。
+以下のコマンドを打って、MariaDBを起動させる。
+➜ / brew services start mariadb ==&gt; Successfully started mariadb (label: homebrew.mxcl.mariadb) ➜ / sudo mysql -u root Welcome to the MariaDB monitor. Commands end with ; or \g. Your MariaDB connection id is 8 Server version: 10.
+	</div>
+</article><article class="list__item post">
 	<figure class="list__thumbnail">
 		<a href="/post/hello/">
 			<img src="/img/tikeda-caravan.jpg" alt="Hello" />
@@ -126,6 +149,7 @@ summary(cars) ## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 2
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/post/connect-mariadb/">Connect-MariaDB in R</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/hello/">Hello</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/2015-07-23-r-rmarkdown/">Hello R Markdown</a></li>
 		</ul>
@@ -137,6 +161,9 @@ summary(cars) ## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 2
 		<ul class="widget__list">
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/analysis/">Analysis</a>
+			</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/mariadb/">MariaDB</a>
 			</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/ml/">ML</a>
@@ -151,8 +178,10 @@ summary(cars) ## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 2
 	<h4 class="widget__title">Tags</h4>
 	<div class="widget__content">
 		<a class="widget-taglist__link widget__link btn" href="/tags/analysis/" title="Analysis">Analysis</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/mariadb/" title="MariaDB">MariaDB</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/ml/" title="ML">ML</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/plot/" title="plot">plot</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/r/" title="R">R</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/r-markdown/" title="R Markdown">R Markdown</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/regression/" title="regression">regression</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/%E9%9B%91%E8%AB%87/" title="雑談">雑談</a>

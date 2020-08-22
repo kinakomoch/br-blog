@@ -1,0 +1,125 @@
+---
+title: "Connect-MariaDB in R"
+description: ""
+date: "2020-07-25T23:55:29+09:00"
+thumbnail: ""
+categories:
+  - "R"
+  - "MariaDB"
+tags:
+  - "R"
+  - "MariaDB"
+---
+
+# MariaDBのインストール
+
+以下の参考サイトを元に、MariaDBのインストールと初期設定を行う
+
+- [MariaDB10.1のインストール方法](https://qiita.com/hana_shin/items/4d7e9f07e206e989834b)
+- [homebrew から MariaDB をインストールする方法](https://qiita.com/kozmats/items/ac32f1ac1d676a09e3b2)
+
+自分はMac Userなので、homebrewを使ってインストール
+```
+$ brew update
+
+$ brew search mariadb
+
+$ brew install mariadb
+```
+
+これで、mariadbがインストールできた。
+
+
+
+# 初期設定の方法
+
+```
+$ sudo mysql_secure_installation
+```
+で設定を行う。
+
+詳細は[MariaDB10.1のインストール方法](https://qiita.com/hana_shin/items/4d7e9f07e206e989834b#7-%E7%8A%B6%E6%85%8B%E3%81%AE%E7%A2%BA%E8%AA%8D%E6%96%B9%E6%B3%95status)を参考にしてください。
+
+次に、RからMariaDBに接続するために、
+[ここ](https://mariadb.com/kb/en/r-statistical-programming-using-mariadb-as-the-background-database/#data-transfer-between-r-and-mariadb)で紹介されている[odbcのドライバー](https://downloads.mariadb.com/Connectors/odbc/connector-odbc-3.1.9/)をインストールを行う。
+
+以下のコマンドを打って、MariaDBを起動させる。
+```
+➜  / brew services start mariadb
+==> Successfully started mariadb (label: homebrew.mxcl.mariadb)
+➜  / sudo mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 8
+Server version: 10.4.13-MariaDB Homebrew
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]>
+```
+
+もし
+```
+ERROR 2002 (HY000): Can't connect to local MySQL server through socket '/tmp/mysql.sock' (2)
+```
+このようなエラーがでたら、MariaDBが立ち上がっていないことを示すので、brew updateなどを行うと解消する可能性がある。
+
+
+# いよいよRでMariaDBに接続
+
+必要なライブラリを読み込む
+```{r}
+# library
+library(tidyverse)
+library(RMariaDB)
+library(DBI)
+```
+
+MariaDBはデフォルトで、`test`っていうDBがあるのでそれに接続してみる。
+hostはlocalhostなので、引数で指定する。
+
+```{r}
+con <- DBI::dbConnect(
+  drv = RMariaDB::MariaDB(),
+  "test",
+  host = "localhost", 
+  port = 3306
+)
+```
+
+
+```{r}
+# データの読み込み
+data(iris)
+# dbのテーブルリスト
+DBI::dbListTables(con)
+# dbにirisテーブルを書き込み
+DBI::dbWriteTable(con, "iris", iris)
+# 書き込みが完了している。
+DBI::dbListTables(con)
+
+# Queryでデータを取ってくる。
+DBI::dbGetQuery(con, "select * from iris order by 'Sepal.Length' limit 3")
+
+# テーブルの削除
+DBI::dbRemoveTable(con, "iris")
+
+# テーブルがなくなっていることが確認できる
+DBI::dbListTables(con)
+
+# きちんと、connectをきる
+DBI::dbDisconnect(con)
+```
+
+以上が軽くではあるが、MariaDBにRで接続する方法を紹介した。
+
+
+# Information
+
+```{r, echo=FALSE}
+date()
+
+sessionInfo()
+```
+
