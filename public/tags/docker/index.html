@@ -4,18 +4,18 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>MariaDB - Br-blog</title>
+	<title>Docker - Br-blog</title>
 	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
 	<meta name="description" content="">
-		<meta property="og:title" content="MariaDB" />
+		<meta property="og:title" content="Docker" />
 <meta property="og:description" content="John Doe&#39;s Personal blog about everything" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="/categories/mariadb/" />
-<meta property="og:updated_time" content="2020-07-25T23:55:29+09:00" />
+<meta property="og:url" content="/tags/docker/" />
+<meta property="og:updated_time" content="2020-08-23T00:03:01+09:00" />
 
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
-	<link rel="alternate" type="application/rss+xml" href="/categories/mariadb/index.xml" title="Br-blog">
+	<link rel="alternate" type="application/rss+xml" href="/tags/docker/index.xml" title="Br-blog">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
 	<link rel="stylesheet" href="/css/style.css">
 	
@@ -65,29 +65,30 @@
 			
 <main class="main list" role="main">
 	<header class="main__header">
-		<h1 class="main__title">MariaDB</h1>
+		<h1 class="main__title">Docker</h1>
 	</header><article class="list__item post">
 	<header class="list__header">
 		<h3 class="list__title post__title ">
-			<a href="/post/connect-mariadb/" rel="bookmark">
-			Connect-MariaDB in R
+			<a href="/post/docker/" rel="bookmark">
+			Dockerfile, docker-composeの設定について
 			</a>
 		</h3>
 		<div class="list__meta meta">
 <div class="meta__item-datetime meta__item">
-	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2020-07-25T23:55:29&#43;09:00">July 25, 2020</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/r/" rel="category">R</a>, <a class="meta__link" href="/categories/mariadb/" rel="category">MariaDB</a>
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2020-08-23T00:03:01&#43;09:00">August 23, 2020</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/" rel="category">Categories</a>
 	</span>
 </div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
-		MariaDBのインストール 以下の参考サイトを元に、MariaDBのインストールと初期設定を行う
- MariaDB10.1のインストール方法 homebrew から MariaDB をインストールする方法  自分はMac Userなので、homebrewを使ってインストール
-$ brew update $ brew search mariadb $ brew install mariadb これで、mariadbがインストールできた。
- 初期設定の方法 $ sudo mysql_secure_installation で設定を行う。
-詳細はMariaDB10.1のインストール方法を参考にしてください。
-次に、RからMariaDBに接続するために、 ここで紹介されているodbcのドライバーをインストールを行う。
-以下のコマンドを打って、MariaDBを起動させる。
-➜ / brew services start mariadb ==&gt; Successfully started mariadb (label: homebrew.mxcl.mariadb) ➜ / sudo mysql -u root Welcome to the MariaDB monitor. Commands end with ; or \g. Your MariaDB connection id is 8 Server version: 10.
+		Dockerfile, docker-composeの設定方法 Dockerfileには通常一つのコンテンツに関するものだけを記述する
+例) pythonと同時にpipでpackageもインストールする場合
+Dockerfile
+FROMpython:latestCOPY requirements.txt requirements.txtRUN pip install --upgrade pip setuptools \  &amp;&amp; pip install -r requirements.txt&ldquo;FROM&quot;でベースとなるイメージをDockerHubから取得。セキュリティの観点からなるべくOfficial imageを取得するべき。
+&ldquo;COPY&quot;はhost(自分が実際に利用しているPC)のrequirements.txtをDocker内のrequirements.txtにコピーしている
+&ldquo;RUN&quot;はdockerが立ち上がる際に実行されるコマンド群を記述する。中間イメージをなるべく作らない(重い処理をさせない)ために&quot;RUN&quot;は&amp;&amp;を利用してできるだけ一度で済ませる
+requirements.txt
+matplotlib==3.3.1 mysql-connector 上の例ではdockerfileでpythonをインストールしている。 その際にpipを利用してモジュールをインストールしているが、別ファイルのrequirements.txtにモジュールとversionを指定しておく。-rオプションを使うことでrequirements.txtに書かれたモジュールをまとめてインストールすることができる。ここでモジュールのversionは指定しなくても良い。
+次にdocker-compose.ymlについて説明する
 	</div>
 </article>
 </main>
