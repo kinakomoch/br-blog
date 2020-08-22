@@ -11,7 +11,7 @@
 <meta property="og:description" content="John Doe&#39;s Personal blog about everything" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="/post/" />
-<meta property="og:updated_time" content="2020-07-25T23:55:29+09:00" />
+<meta property="og:updated_time" content="2020-08-23T00:03:01+09:00" />
 
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -67,6 +67,34 @@
 	<header class="main__header">
 		<h1 class="main__title">Posts</h1>
 	</header><article class="list__item post">
+	<header class="list__header">
+		<h3 class="list__title post__title ">
+			<a href="/post/docker/" rel="bookmark">
+			Dockerfile, docker-composeの設定について
+			</a>
+		</h3>
+		<div class="list__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2020-08-23T00:03:01&#43;09:00">August 23, 2020</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/" rel="category">Categories</a>
+	</span>
+</div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		Dockerfile, docker-composeの設定方法 Dockerfileには通常一つのコンテンツに関するものだけを記述する 例) jupyterと同時にpipでpackageもインストールする場合
+Dockerfile
+FROMjupyter/datascience-notebookCOPY requirements.txt requirements.txtRUN pip install --upgrade pip setuptools \  &amp;&amp; pip install -r requirements.txt&ldquo;FROM&quot;でベースとなるイメージをDockerHubから取得。セキュリティの観点からなるべくOfficial imageを取得するべき。
+&ldquo;COPY&quot;はhost(自分が実際に利用しているPC)のrequirements.txtをDocker内のrequirements.txtにコピーしている。
+&ldquo;RUN&quot;はdockerが立ち上がる際に実行されるコマンド群を記述する。中間イメージをなるべく作らない(重い処理をさせない)ために&quot;RUN&quot;は&amp;&amp;を利用してできるだけ一度で済ませる。
+注意点としてpipでインターネットを経由してファイルを取得するようなものの場合、取得できない場合がある。その際はDNSの設定ができてない可能性がある。その際は以下のファイルを作成してdockerを再起動させることでうまくいく場合がある。 最初のアドレスは自分の環境に合わせて修正すると良い。
+/etc/docker/daemon.json
+{ &#34;dns&#34;: [&#34;192.168.26.2&#34;, &#34;8.8.8.8&#34;] } requirements.txt
+matplotlib==3.3.1 mysql-connector 上の例ではdockerfileでpythonをインストールしている。 その際にpipを利用してモジュールをインストールしているが、別ファイルのrequirements.txtにモジュールとversionを指定しておく。-rオプションを使うことでrequirements.txtに書かれたモジュールをまとめてインストールすることができる。ここでモジュールのversionは指定しなくても良い。
+次にdocker-compose.ymlについて説明する
+ここではディレクトリ構造を以下に示しておく。
+└── app ├── jupyterlab │ ├── requirements.txt │ └── Dockerfile ├── db └── docker-compose.yml docker-compose.yml
+version: &#34;3.8&#34;services: jupyterlab: build: . environment: - JUPYTER_ENABLE_LAB=yes ports: - &#34;8888:8888&#34; command: start-notebook.sh --NotebookApp.token=&#39;&#39;  db: image: mariadb:latest environment: - MYSQL_ROOT_PASSWORD=example - MYSQL_DATABASE=example - MYSQL_USER=example - MYSQL_PASSWORD=example ports: - &#34;3307:3306&#34; volumes: - &#34;.
+	</div>
+</article><article class="list__item post">
 	<header class="list__header">
 		<h3 class="list__title post__title ">
 			<a href="/post/connect-mariadb/" rel="bookmark">
@@ -149,6 +177,7 @@ summary(cars) ## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 2
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/post/docker/">Dockerfile, docker-composeの設定について</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/connect-mariadb/">Connect-MariaDB in R</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/hello/">Hello</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/2015-07-23-r-rmarkdown/">Hello R Markdown</a></li>
@@ -178,6 +207,7 @@ summary(cars) ## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 2
 	<h4 class="widget__title">Tags</h4>
 	<div class="widget__content">
 		<a class="widget-taglist__link widget__link btn" href="/tags/analysis/" title="Analysis">Analysis</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/docker/" title="Docker">Docker</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/mariadb/" title="MariaDB">MariaDB</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/ml/" title="ML">ML</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/plot/" title="plot">plot</a>

@@ -6,10 +6,19 @@
     <description>Recent content in Tags on Br-blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 25 Jul 2020 23:55:29 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 23 Aug 2020 00:03:01 +0900</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Docker</title>
+      <link>/tags/docker/</link>
+      <pubDate>Sun, 23 Aug 2020 00:03:01 +0900</pubDate>
+      
+      <guid>/tags/docker/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>MariaDB</title>
