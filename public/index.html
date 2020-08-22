@@ -91,7 +91,7 @@ matplotlib==3.3.1 mysql-connector 上の例ではdockerfileでpythonをインス
 次にdocker-compose.ymlについて説明する
 ここではディレクトリ構造を以下に示しておく。
 └── app ├── jupyterlab │ ├── requirements.txt │ └── Dockerfile ├── db └── docker-compose.yml docker-compose.yml
-version: &#34;3.8&#34;services: jupyterlab: build: . environment: - JUPYTER_ENABLE_LAB=yes ports: - &#34;8888:8888&#34; links: - &#34;db&#34; command: start-notebook.sh --NotebookApp.
+version: &#34;3.8&#34;services: jupyterlab: build: . environment: - JUPYTER_ENABLE_LAB=yes ports: - &#34;8888:8888&#34; command: start-notebook.sh --NotebookApp.token=&#39;&#39;  db: image: mariadb:latest environment: - MYSQL_ROOT_PASSWORD=example - MYSQL_DATABASE=example - MYSQL_USER=example - MYSQL_PASSWORD=example ports: - &#34;3307:3306&#34; volumes: - &#34;.
 	</div>
 </article><article class="list__item post">
 	<header class="list__header">

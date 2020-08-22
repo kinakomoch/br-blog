@@ -20,7 +20,7 @@ matplotlib==3.3.1 mysql-connector 上の例ではdockerfileでpythonをインス
 次にdocker-compose.ymlについて説明する
 ここではディレクトリ構造を以下に示しておく。
 └── app ├── jupyterlab │ ├── requirements.txt │ └── Dockerfile ├── db └── docker-compose.yml docker-compose.yml
-version: &#34;3.8&#34;services: jupyterlab: build: . environment: - JUPYTER_ENABLE_LAB=yes ports: - &#34;8888:8888&#34; links: - &#34;db&#34; command: start-notebook.sh --NotebookApp." />
+version: &#34;3.8&#34;services: jupyterlab: build: . environment: - JUPYTER_ENABLE_LAB=yes ports: - &#34;8888:8888&#34; command: start-notebook.sh --NotebookApp.token=&#39;&#39;  db: image: mariadb:latest environment: - MYSQL_ROOT_PASSWORD=example - MYSQL_DATABASE=example - MYSQL_USER=example - MYSQL_PASSWORD=example ports: - &#34;3307:3306&#34; volumes: - &#34;." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/post/docker/" />
 <meta property="article:published_time" content="2020-08-23T00:03:01+09:00" />
@@ -127,8 +127,6 @@ mysql-connector
 </span><span style="color:#960050;background-color:#1e0010"></span>            - JUPYTER_ENABLE_LAB<span style="color:#f92672">=</span>yes<span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span>        ports:<span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span>            - <span style="color:#e6db74">&#34;8888:8888&#34;</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>        links:<span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span>            - <span style="color:#e6db74">&#34;db&#34;</span><span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span>         command: start-notebook.sh --NotebookApp.token<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;&#39;</span><span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span>    db:<span style="color:#960050;background-color:#1e0010">
@@ -142,7 +140,21 @@ mysql-connector
 </span><span style="color:#960050;background-color:#1e0010"></span>            - <span style="color:#e6db74">&#34;3307:3306&#34;</span><span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span>        volumes:<span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span>            - <span style="color:#e6db74">&#34;./db:/var/lib/mysql&#34;</span><span style="color:#960050;background-color:#1e0010">
-</span></code></pre></div>
+</span></code></pre></div><p>buildはDockerfileがある場合<!-- raw HTML omitted -->
+imageはDocker imageを取得する場合にそれぞれ利用する。どちらかは必ず利用する。</p>
+<p>environmentはDockerの環境変数などの設定を行う。</p>
+<p>portsは &lt;hostのport&gt;:&lt;dockerのport&gt;で指定する。</p>
+<p>volumesもportsと似たような感じで &lt;hostのディレクトリ&gt;:&lt;dockerのディレクトリ&gt;で指定する。</p>
+<p>linkは<del>container間を接続</del>　現在は自動でリンクを作るので不要らしい。</p>
+<p>commandはデフォルトのコマンドの上書き</p>
+<p>他にもuserを設定したりなんかができる。</p>
+<p>以上でおおよそのDockerfileとdocker-compose.ymlの書き方についてまとめとする。</p>
+<p>(Dockerの勉強で参考にしたサイト)</p>
+<ul>
+<li><a href="https://y-ohgi.com/introduction-docker/">https://y-ohgi.com/introduction-docker/</a></li>
+<li><a href="https://stackoverflow.com/questions/28668180/cant-install-pip-packages-inside-a-docker-container-with-ubuntu">https://stackoverflow.com/questions/28668180/cant-install-pip-packages-inside-a-docker-container-with-ubuntu</a></li>
+</ul>
+
 		</div>
 		<footer class="post__footer">
 			

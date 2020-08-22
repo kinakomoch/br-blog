@@ -74,8 +74,6 @@ services:
             - JUPYTER_ENABLE_LAB=yes
         ports:
             - "8888:8888"
-        links:
-            - "db"
          command: start-notebook.sh --NotebookApp.token=''
     
     db:
@@ -90,3 +88,25 @@ services:
         volumes:
             - "./db:/var/lib/mysql"
 ```
+
+buildはDockerfileがある場合<br>
+imageはDocker imageを取得する場合にそれぞれ利用する。どちらかは必ず利用する。
+
+environmentはDockerの環境変数などの設定を行う。
+
+portsは <hostのport>:<dockerのport>で指定する。
+
+volumesもportsと似たような感じで <hostのディレクトリ>:<dockerのディレクトリ>で指定する。
+
+linkは~~container間を接続~~　現在は自動でリンクを作るので不要らしい。
+
+commandはデフォルトのコマンドの上書き
+
+他にもuserを設定したりなんかができる。
+
+以上でおおよそのDockerfileとdocker-compose.ymlの書き方についてまとめとする。
+
+(Dockerの勉強で参考にしたサイト)
+ - https://y-ohgi.com/introduction-docker/
+ - https://stackoverflow.com/questions/28668180/cant-install-pip-packages-inside-a-docker-container-with-ubuntu
+ 
