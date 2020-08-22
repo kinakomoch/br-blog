@@ -8,15 +8,19 @@
 	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
 	<meta name="description" content="">
 		<meta property="og:title" content="Dockerfile, docker-composeの設定について" />
-<meta property="og:description" content="Dockerfile, docker-composeの設定方法 Dockerfileには通常一つのコンテンツに関するものだけを記述する
-例) pythonと同時にpipでpackageもインストールする場合
+<meta property="og:description" content="Dockerfile, docker-composeの設定方法 Dockerfileには通常一つのコンテンツに関するものだけを記述する 例) jupyterと同時にpipでpackageもインストールする場合
 Dockerfile
-FROMpython:latestCOPY requirements.txt requirements.txtRUN pip install --upgrade pip setuptools \  &amp;&amp; pip install -r requirements.txt&ldquo;FROM&quot;でベースとなるイメージをDockerHubから取得。セキュリティの観点からなるべくOfficial imageを取得するべき。
-&ldquo;COPY&quot;はhost(自分が実際に利用しているPC)のrequirements.txtをDocker内のrequirements.txtにコピーしている
-&ldquo;RUN&quot;はdockerが立ち上がる際に実行されるコマンド群を記述する。中間イメージをなるべく作らない(重い処理をさせない)ために&quot;RUN&quot;は&amp;&amp;を利用してできるだけ一度で済ませる
-requirements.txt
+FROMjupyter/datascience-notebookCOPY requirements.txt requirements.txtRUN pip install --upgrade pip setuptools \  &amp;&amp; pip install -r requirements.txt&ldquo;FROM&quot;でベースとなるイメージをDockerHubから取得。セキュリティの観点からなるべくOfficial imageを取得するべき。
+&ldquo;COPY&quot;はhost(自分が実際に利用しているPC)のrequirements.txtをDocker内のrequirements.txtにコピーしている。
+&ldquo;RUN&quot;はdockerが立ち上がる際に実行されるコマンド群を記述する。中間イメージをなるべく作らない(重い処理をさせない)ために&quot;RUN&quot;は&amp;&amp;を利用してできるだけ一度で済ませる。
+注意点としてpipでインターネットを経由してファイルを取得するようなものの場合、取得できない場合がある。その際はDNSの設定ができてない可能性がある。その際は以下のファイルを作成してdockerを再起動させることでうまくいく場合がある。 最初のアドレスは自分の環境に合わせて修正すると良い。
+/etc/docker/daemon.json
+{ &#34;dns&#34;: [&#34;192.168.26.2&#34;, &#34;8.8.8.8&#34;] } requirements.txt
 matplotlib==3.3.1 mysql-connector 上の例ではdockerfileでpythonをインストールしている。 その際にpipを利用してモジュールをインストールしているが、別ファイルのrequirements.txtにモジュールとversionを指定しておく。-rオプションを使うことでrequirements.txtに書かれたモジュールをまとめてインストールすることができる。ここでモジュールのversionは指定しなくても良い。
-次にdocker-compose.ymlについて説明する" />
+次にdocker-compose.ymlについて説明する
+ここではディレクトリ構造を以下に示しておく。
+└── app ├── jupyterlab │ ├── requirements.txt │ └── Dockerfile ├── db └── docker-compose.yml docker-compose.yml
+version: &#34;3.8&#34;services: jupyterlab: build: . environment: - JUPYTER_ENABLE_LAB=yes ports: - &#34;8888:8888&#34; links: - &#34;db&#34; command: start-notebook.sh --NotebookApp." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/post/docker/" />
 <meta property="article:published_time" content="2020-08-23T00:03:01+09:00" />
@@ -82,25 +86,63 @@ matplotlib==3.3.1 mysql-connector 上の例ではdockerfileでpythonをインス
 </div></div>
 		</header><div class="content post__content clearfix">
 			<h1 id="dockerfile-docker-composeの設定方法">Dockerfile, docker-composeの設定方法</h1>
-<p>Dockerfileには通常一つのコンテンツに関するものだけを記述する</p>
-<p>例) pythonと同時にpipでpackageもインストールする場合</p>
+<h3 id="dockerfileには通常一つのコンテンツに関するものだけを記述する">Dockerfileには通常一つのコンテンツに関するものだけを記述する</h3>
+<p>例) jupyterと同時にpipでpackageもインストールする場合</p>
 <p>Dockerfile</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> python:latest</span><span style="color:#960050;background-color:#1e0010">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> jupyter/datascience-notebook</span><span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> requirements.txt requirements.txt<span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> pip install --upgrade pip setuptools <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span> <span style="color:#f92672">&amp;&amp;</span> pip install -r requirements.txt<span style="color:#960050;background-color:#1e0010">
 </span></code></pre></div><p>&ldquo;FROM&quot;でベースとなるイメージをDockerHubから取得。セキュリティの観点からなるべくOfficial imageを取得するべき。</p>
-<p>&ldquo;COPY&quot;はhost(自分が実際に利用しているPC)のrequirements.txtをDocker内のrequirements.txtにコピーしている</p>
-<p>&ldquo;RUN&quot;はdockerが立ち上がる際に実行されるコマンド群を記述する。中間イメージをなるべく作らない(重い処理をさせない)ために&quot;RUN&quot;は&amp;&amp;を利用してできるだけ一度で済ませる</p>
-<p>requirements.txt</p>
+<p>&ldquo;COPY&quot;はhost(自分が実際に利用しているPC)のrequirements.txtをDocker内のrequirements.txtにコピーしている。</p>
+<p>&ldquo;RUN&quot;はdockerが立ち上がる際に実行されるコマンド群を記述する。中間イメージをなるべく作らない(重い処理をさせない)ために&quot;RUN&quot;は&amp;&amp;を利用してできるだけ一度で済ませる。</p>
+<p>注意点としてpipでインターネットを経由してファイルを取得するようなものの場合、取得できない場合がある。その際はDNSの設定ができてない可能性がある。その際は以下のファイルを作成してdockerを再起動させることでうまくいく場合がある。
+最初のアドレスは自分の環境に合わせて修正すると良い。</p>
+<p>/etc/docker/daemon.json</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#f92672">&#34;dns&#34;</span>: [<span style="color:#e6db74">&#34;192.168.26.2&#34;</span>, <span style="color:#e6db74">&#34;8.8.8.8&#34;</span>]
+}
+</code></pre></div><p>requirements.txt</p>
 <pre><code>matplotlib==3.3.1
 mysql-connector
 </code></pre><p>上の例ではdockerfileでpythonをインストールしている。
 その際にpipを利用してモジュールをインストールしているが、別ファイルのrequirements.txtにモジュールとversionを指定しておく。-rオプションを使うことでrequirements.txtに書かれたモジュールをまとめてインストールすることができる。ここでモジュールのversionは指定しなくても良い。</p>
 <p>次にdocker-compose.ymlについて説明する</p>
-
+<p>ここではディレクトリ構造を以下に示しておく。</p>
+<pre><code>└── app
+    ├── jupyterlab
+    │   ├── requirements.txt
+    │   └── Dockerfile
+    ├── db
+    └── docker-compose.yml
+</code></pre><p>docker-compose.yml</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile">version: <span style="color:#e6db74">&#34;3.8&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>services:<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    jupyterlab:<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>        build: .<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>        environment:<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>            - JUPYTER_ENABLE_LAB<span style="color:#f92672">=</span>yes<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>        ports:<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>            - <span style="color:#e6db74">&#34;8888:8888&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>        links:<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>            - <span style="color:#e6db74">&#34;db&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>         command: start-notebook.sh --NotebookApp.token<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;&#39;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    db:<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>        image: mariadb:latest<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>         environment:<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>          - MYSQL_ROOT_PASSWORD<span style="color:#f92672">=</span>example<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>          - MYSQL_DATABASE<span style="color:#f92672">=</span>example<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>          - MYSQL_USER<span style="color:#f92672">=</span>example<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>          - MYSQL_PASSWORD<span style="color:#f92672">=</span>example<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>        ports:<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>            - <span style="color:#e6db74">&#34;3307:3306&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>        volumes:<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>            - <span style="color:#e6db74">&#34;./db:/var/lib/mysql&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div>
 		</div>
 		<footer class="post__footer">
 			

@@ -17,15 +17,19 @@
       <pubDate>Sun, 23 Aug 2020 00:03:01 +0900</pubDate>
       
       <guid>/post/docker/</guid>
-      <description>Dockerfile, docker-composeの設定方法 Dockerfileには通常一つのコンテンツに関するものだけを記述する
-例) pythonと同時にpipでpackageもインストールする場合
+      <description>Dockerfile, docker-composeの設定方法 Dockerfileには通常一つのコンテンツに関するものだけを記述する 例) jupyterと同時にpipでpackageもインストールする場合
 Dockerfile
-FROMpython:latestCOPY requirements.txt requirements.txtRUN pip install --upgrade pip setuptools \  &amp;amp;&amp;amp; pip install -r requirements.txt&amp;ldquo;FROM&amp;quot;でベースとなるイメージをDockerHubから取得。セキュリティの観点からなるべくOfficial imageを取得するべき。
-&amp;ldquo;COPY&amp;quot;はhost(自分が実際に利用しているPC)のrequirements.txtをDocker内のrequirements.txtにコピーしている
-&amp;ldquo;RUN&amp;quot;はdockerが立ち上がる際に実行されるコマンド群を記述する。中間イメージをなるべく作らない(重い処理をさせない)ために&amp;quot;RUN&amp;quot;は&amp;amp;&amp;amp;を利用してできるだけ一度で済ませる
-requirements.txt
+FROMjupyter/datascience-notebookCOPY requirements.txt requirements.txtRUN pip install --upgrade pip setuptools \  &amp;amp;&amp;amp; pip install -r requirements.txt&amp;ldquo;FROM&amp;quot;でベースとなるイメージをDockerHubから取得。セキュリティの観点からなるべくOfficial imageを取得するべき。
+&amp;ldquo;COPY&amp;quot;はhost(自分が実際に利用しているPC)のrequirements.txtをDocker内のrequirements.txtにコピーしている。
+&amp;ldquo;RUN&amp;quot;はdockerが立ち上がる際に実行されるコマンド群を記述する。中間イメージをなるべく作らない(重い処理をさせない)ために&amp;quot;RUN&amp;quot;は&amp;amp;&amp;amp;を利用してできるだけ一度で済ませる。
+注意点としてpipでインターネットを経由してファイルを取得するようなものの場合、取得できない場合がある。その際はDNSの設定ができてない可能性がある。その際は以下のファイルを作成してdockerを再起動させることでうまくいく場合がある。 最初のアドレスは自分の環境に合わせて修正すると良い。
+/etc/docker/daemon.json
+{ &amp;#34;dns&amp;#34;: [&amp;#34;192.168.26.2&amp;#34;, &amp;#34;8.8.8.8&amp;#34;] } requirements.txt
 matplotlib==3.3.1 mysql-connector 上の例ではdockerfileでpythonをインストールしている。 その際にpipを利用してモジュールをインストールしているが、別ファイルのrequirements.txtにモジュールとversionを指定しておく。-rオプションを使うことでrequirements.txtに書かれたモジュールをまとめてインストールすることができる。ここでモジュールのversionは指定しなくても良い。
-次にdocker-compose.ymlについて説明する</description>
+次にdocker-compose.ymlについて説明する
+ここではディレクトリ構造を以下に示しておく。
+└── app ├── jupyterlab │ ├── requirements.txt │ └── Dockerfile ├── db └── docker-compose.yml docker-compose.yml
+version: &amp;#34;3.8&amp;#34;services: jupyterlab: build: . environment: - JUPYTER_ENABLE_LAB=yes ports: - &amp;#34;8888:8888&amp;#34; links: - &amp;#34;db&amp;#34; command: start-notebook.sh --NotebookApp.</description>
     </item>
     
     <item>
