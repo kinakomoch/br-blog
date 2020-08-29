@@ -12,6 +12,16 @@
     
     
     <item>
+      <title>Example</title>
+      <link>/post/example/</link>
+      <pubDate>Sat, 29 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/post/example/</guid>
+      <description>Example
+こんにちは</description>
+    </item>
+    
+    <item>
       <title>Dockerfile, docker-composeの設定について</title>
       <link>/post/docker/</link>
       <pubDate>Sun, 23 Aug 2020 00:03:01 +0900</pubDate>
