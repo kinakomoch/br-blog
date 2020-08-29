@@ -120,6 +120,6 @@ DBI::dbDisconnect(con)
 ```{r, echo=FALSE}
 date()
 
-sessionInfo()
+devtools::session_info()
 ```
 
