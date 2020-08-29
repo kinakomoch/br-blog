@@ -34,10 +34,10 @@ version: &amp;#34;3.8&amp;#34;services: jupyterlab: build: . environment: - JUPY
     
     <item>
       <title>Connect-MariaDB in R</title>
-      <link>/post/connect-mariadb/</link>
+      <link>/post/2020-07-25-connect-mariadb/</link>
       <pubDate>Sat, 25 Jul 2020 23:55:29 +0900</pubDate>
       
-      <guid>/post/connect-mariadb/</guid>
+      <guid>/post/2020-07-25-connect-mariadb/</guid>
       <description>MariaDBのインストール 以下の参考サイトを元に、MariaDBのインストールと初期設定を行う
  MariaDB10.1のインストール方法 homebrew から MariaDB をインストールする方法  自分はMac Userなので、homebrewを使ってインストール
 $ brew update $ brew search mariadb $ brew install mariadb これで、mariadbがインストールできた。
