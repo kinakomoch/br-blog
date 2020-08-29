@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Br-blog</title>
-    <link>/</link>
-    <description>Recent content on Br-blog</description>
+    <title>Docker on Br-blog</title>
+    <link>/tags/docker/</link>
+    <description>Recent content in Docker on Br-blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 23 Aug 2020 00:03:01 +0900</lastBuildDate>
     
-	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/docker/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -30,57 +30,6 @@ matplotlib==3.3.1 mysql-connector 上の例ではdockerfileでpythonをインス
 ここではディレクトリ構造を以下に示しておく。
 └── app ├── jupyterlab │ ├── requirements.txt │ └── Dockerfile ├── db └── docker-compose.yml docker-compose.yml
 version: &amp;#34;3.8&amp;#34;services: jupyterlab: build: . environment: - JUPYTER_ENABLE_LAB=yes ports: - &amp;#34;8888:8888&amp;#34; command: start-notebook.sh --NotebookApp.token=&amp;#39;&amp;#39;  db: image: mariadb:latest environment: - MYSQL_ROOT_PASSWORD=example - MYSQL_DATABASE=example - MYSQL_USER=example - MYSQL_PASSWORD=example ports: - &amp;#34;3307:3306&amp;#34; volumes: - &amp;#34;.</description>
-    </item>
-    
-    <item>
-      <title>Connect-MariaDB in R</title>
-      <link>/post/connect-mariadb/</link>
-      <pubDate>Sat, 25 Jul 2020 23:55:29 +0900</pubDate>
-      
-      <guid>/post/connect-mariadb/</guid>
-      <description>MariaDBのインストール 以下の参考サイトを元に、MariaDBのインストールと初期設定を行う
- MariaDB10.1のインストール方法 homebrew から MariaDB をインストールする方法  自分はMac Userなので、homebrewを使ってインストール
-$ brew update $ brew search mariadb $ brew install mariadb これで、mariadbがインストールできた。
- 初期設定の方法 $ sudo mysql_secure_installation で設定を行う。
-詳細はMariaDB10.1のインストール方法を参考にしてください。
-次に、RからMariaDBに接続するために、 ここで紹介されているodbcのドライバーをインストールを行う。
-以下のコマンドを打って、MariaDBを起動させる。
-➜ / brew services start mariadb ==&amp;gt; Successfully started mariadb (label: homebrew.mxcl.mariadb) ➜ / sudo mysql -u root Welcome to the MariaDB monitor. Commands end with ; or \g. Your MariaDB connection id is 8 Server version: 10.</description>
-    </item>
-    
-    <item>
-      <title>Hello</title>
-      <link>/post/hello/</link>
-      <pubDate>Sat, 20 Jun 2020 21:06:54 +0900</pubDate>
-      
-      <guid>/post/hello/</guid>
-      <description> Hello World!! はじめての記事です!
-このサイトでは、競艇に関する機械学習や統計的学習について学んでいくサイトになります。
- </description>
-    </item>
-    
-    <item>
-      <title>Hello R Markdown</title>
-      <link>/post/2015-07-23-r-rmarkdown/</link>
-      <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
-      
-      <guid>/post/2015-07-23-r-rmarkdown/</guid>
-      <description>R Markdown This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown.rstudio.com.
-You can embed an R code chunk like this:
-summary(cars) ## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 26.00 ## Median :15.0 Median : 36.00 ## Mean :15.4 Mean : 42.98 ## 3rd Qu.</description>
-    </item>
-    
-    <item>
-      <title>About Hugo</title>
-      <link>/about/</link>
-      <pubDate>Wed, 09 Apr 2014 00:00:00 +0000</pubDate>
-      
-      <guid>/about/</guid>
-      <description>Hugo is a static site engine written in Go.
-It makes use of a variety of open source projects including:
- Cobra Viper J Walter Weatherman Cast  Learn more and contribute on GitHub.
-Setup Some fun facts about Hugo:
- Built in Go Loosely inspired by Jekyll Primarily developed by spf13 on the train while commuting to and from Manhattan. Coded in Vim using spf13-vim  Have questions or suggestions?</description>
     </item>
     
   </channel>
