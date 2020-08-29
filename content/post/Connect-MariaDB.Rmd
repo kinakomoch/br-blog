@@ -1,6 +1,6 @@
 ---
 title: "Connect-MariaDB in R"
-description: ""
+description: "RからMariaDBにConnectする方法"
 date: "2020-07-25T23:55:29+09:00"
 thumbnail: ""
 categories:
